@@ -20,3 +20,34 @@ Then transform will return an array
     'full_name' => 'Austin Kregel'
 ]
 ```
+
+If you're using laravel you can use the `LaravelModelTransformer` to get the same functionality for your models.
+
+
+```php
+class User extends LaravelModelTransformer 
+{
+    public $fillable = [
+        'full_name'
+    ];
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function getKeys()
+    {
+        return [
+            'full_name' => 'name',
+            'posts' => 'blogPosts'
+        ];
+    }
+}
+```
+
+## What could this be used for?
+Well, what you _could_ use it for is a list unmeasurable... What I plan on doing with it, is build an API that gracefully ages.
+Much like the way Stripe supports older versions of their api. This allows us as developers to change the data we receive and
+put it into the format we need. So long as we control it, the api could be upgraded as many times as we need, and we only need
+to remap the inputs/outputs to the respective values for it to work.
