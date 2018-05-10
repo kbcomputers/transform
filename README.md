@@ -14,6 +14,23 @@ $dataTransformer = new Transformer([
 
 $dataTransformer->transform();
 ```
+or
+
+```php
+use Kregel\Transform\Transformer;
+
+$dataTransformer = new Transformer;
+
+$dataTransformer->setOriginalFeed([
+    'NAME' => 'Austin Kregel'
+])
+
+$dataTransformer->setKeys([
+    'NAME' => 'full_name'
+]);
+
+$dataTransformer->transform();
+```
 Then transform will return an array
 ```
 [
@@ -44,6 +61,12 @@ class User extends LaravelModelTransformer
         ];
     }
 }
+```
+Then you could use
+```php
+$user = User::first();
+
+$user->transform();
 ```
 
 ## What could this be used for?
